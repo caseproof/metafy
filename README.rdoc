@@ -1,0 +1,49 @@
+= Metafy
+
+Metafy is a Gem for Rails 3 and above that makes it possible to easily add dynamic attributes to any ActiveRecord model. These dynamic attributes work just like normal database column attributes and are fully searchable (i.e. You can find records by values contained in these dynamic attributes).
+
+= Installation
+
+To apply Metafy to any ActiveRecord model, follow these simple steps:
+
+1. Install
+   - Add to Gemfile: <b>gem 'metafy'</b>
+   - Install required gems: <b>bundle install</b>
+
+2. Add 'metas' column to your database
+   - Create migration: <b>rails g metafy</b>
+   - Migrate your database: <b>rake db:migrate</b>
+
+3. Add metafied attributes to your model using the 
+   - Add to app/models/person.rb: <b>metafy :first_name, :last_name</b>
+
+Now you can do things like:
+  person = Person.meta_where( :first_name => 'Bevis' ).first
+  person.first_name = 'Larry'
+  person.first_name
+    => 'Larry'
+
+Or
+	person = Person.new :first_name => 'Jerry', :last_name => 'Johnson'
+	person.save
+
+Or
+	num_johnsons = Person.meta_where( :last_name => 'Johnson' ).count
+	
+Or assuming that email is a column on the people database table:
+	people = Person.where( :email => 'jerry@example.com' ).meta_where( :last_name => 'Johnson' )
+
+= Version history
+
+- Version 0.0.3
+  - Added documentation
+- Version 0.0.2
+  - Gem Fixes
+- Version 0.0.1
+  - Initial Version
+
+= Contact and copyright
+
+Bug report? Faulty/incomplete documentation? Feature request? Please post an issue on 'http://github.com/Caseproof/metafy/issues'. If its urgent, please contact me from my website at 'http://blairwilliams.com/contact'
+
+Copyright (c) 2004-2011 Caseproof, LLC, released under the MIT license
