@@ -10,11 +10,11 @@ To apply Metafy to any ActiveRecord model, follow these simple steps:
    - Add to Gemfile: <b>gem 'metafy'</b>
    - Install required gems: <b>bundle install</b>
 
-2. Add 'metas' column to your database
+2. Add 'metas' table to your database
    - Create migration: <b>rails g metafy</b>
    - Migrate your database: <b>rake db:migrate</b>
 
-3. Add metafied attributes to your model using the 
+3. Add metafied attributes to your model using the <b>metafy</b> class method (in this case we're putting it at the top of our "Person" model):
    - Add to app/models/person.rb: <b>metafy :first_name, :last_name</b>
 
 Now you can do things like:
