@@ -18,20 +18,23 @@ To apply Metafy to any ActiveRecord model, follow these simple steps:
    - Add to app/models/person.rb: <b>metafy :first_name, :last_name</b>
 
 Now you can do things like:
-  person = Person.meta_where( :first_name => 'Bevis' ).first
-  person.first_name = 'Larry'
-  person.first_name
+  >> person = Person.meta_where( :first_name => 'Bevis' ).first
+  >> person.first_name = 'Larry'
+  >> person.first_name
     => 'Larry'
 
-Or
-	person = Person.new :first_name => 'Jerry', :last_name => 'Johnson'
-	person.save
+OR create a new record with meta attributes:
+  >> person = Person.new :first_name => 'Jerry', :last_name => 'Johnson'
+  >> person.save
 
-Or
-	num_johnsons = Person.meta_where( :last_name => 'Johnson' ).count
+OR select using the meta_where scope:
+  >> num_johnsons = Person.meta_where( :last_name => 'Johnson' ).count
+
+OR select & order using standard rails relations:
+  >> num_johnsons = Person.includes( :m_last_name ).includes( :m_first_name ).where( :m_last_name => { :meta_value => 'Johnson' } ).order( 'm_first_name.meta_value' )
 	
-Or assuming that email is a column on the people database table:
-	people = Person.where( :email => 'jerry@example.com' ).meta_where( :last_name => 'Johnson' )
+OR assuming that email is a column on the people database table:
+  >> people = Person.where( :email => 'jerry@example.com' ).meta_where( :last_name => 'Johnson' )
 
 = Version history
 

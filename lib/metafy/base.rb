@@ -17,7 +17,7 @@ module Metafy
     end
 
     def read_metafied_attribute(attribute)
-      has_metafied_attribute?(attribute.to_sym) ? Meta.value(self.class.name, self.id, attribute.to_s) : nil
+      has_metafied_attribute?(attribute.to_sym) ? Mattr.value(self.class.name, self.id, attribute.to_s) : nil
     end
 
     def write_metafied_attributes
@@ -33,14 +33,14 @@ module Metafy
       new_meta = get_metafied_attribute( meta_attr )
       
       if( old_meta != new_meta )
-        Meta.meta = [ self.class.name, self.id, meta_attr.to_s, get_metafied_attribute( meta_attr ) ]
+        Mattr.meta = [ self.class.name, self.id, meta_attr.to_s, get_metafied_attribute( meta_attr ) ]
       end
     end
 
     def populate_metafied_attributes
       define_accessors_for_attributes
 
-      attributes = Meta.metas(self.class.name, self.id)
+      attributes = Mattr.metas(self.class.name, self.id)
       attributes.each do | meta_attr |
         set_metafied_attribute( meta_attr.meta_key.to_sym, meta_attr.meta_value.to_s )
       end

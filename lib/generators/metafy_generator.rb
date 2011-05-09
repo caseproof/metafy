@@ -1,6 +1,6 @@
 require 'rails/generators'
 
-class MetasGenerator < Rails::Generators::Base
+class MetafyGenerator < Rails::Generators::Base
   include Rails::Generators::Migration
 
   source_root File.expand_path("../templates", __FILE__)
@@ -14,6 +14,6 @@ class MetasGenerator < Rails::Generators::Base
    end
 
    def create_migration_file
-     migration_template 'create_metas.rb', 'db/migrate/create_metas.rb'
+     migration_template 'create_mattrs.rb', 'db/migrate/create_mattrs.rb'
    end
 end

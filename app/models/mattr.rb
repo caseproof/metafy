@@ -1,11 +1,11 @@
-class Meta < ActiveRecord::Base
+class Mattr < ActiveRecord::Base
   def self.meta(target_type, target_id, meta_key)
-    Meta.where({ :target_type => target_type, :meta_key => meta_key, :target_id => target_id }).first
+    Mattr.where({ :target_type => target_type, :meta_key => meta_key, :target_id => target_id }).first
   end
   
   def self.meta=(args)
     return false if args.nil? or !args.is_a?(Array) or args.length < 4
-    Meta.metas = [ args[0], args[1], { args[2] => args[3] } ]
+    Mattr.metas = [ args[0], args[1], { args[2] => args[3] } ]
   end
 
   def self.metas=(args)
@@ -15,7 +15,7 @@ class Meta < ActiveRecord::Base
 
     args[2].each do |k,v|
       unless meta = self.meta(args[0],args[1],k)
-        meta = Meta.new
+        meta = Mattr.new
       end
 
       meta.target_type = args[0]
@@ -36,6 +36,6 @@ class Meta < ActiveRecord::Base
   end
   
   def self.metas(target_type, target_id)
-    Meta.where({ :target_type => target_type, :target_id => target_id })
+    Mattr.where({ :target_type => target_type, :target_id => target_id })
   end
 end
