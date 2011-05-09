@@ -119,7 +119,7 @@ class << ActiveRecord::Base
     table_name = self.table_name
     meta_selects = ["#{table_name}.*"]
     self.metafied_attrs.each do |col|
-      meta_joins.push("LEFT JOIN metas m_#{col.to_s} ON m_#{col.to_s}.target_id=#{table_name}.id AND m_#{col.to_s}.meta_key='#{col.to_s}' AND m_#{col.to_s}.target_type='#{class_name}'")
+      meta_joins.push("LEFT JOIN mattrs m_#{col.to_s} ON m_#{col.to_s}.target_id=#{table_name}.id AND m_#{col.to_s}.meta_key='#{col.to_s}' AND m_#{col.to_s}.target_type='#{class_name}'")
       meta_selects.push("m_#{col.to_s}.meta_value AS #{col.to_s}")
     end
 
