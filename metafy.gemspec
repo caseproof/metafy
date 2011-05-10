@@ -4,13 +4,13 @@ require "metafy/version"
 
 Gem::Specification.new do |s|
   s.name        = "metafy"
-  s.version     = Metafy::VERSION
+  s.version     = "1.0.0"
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["supercleanse"]
+  s.authors     = ["supercleanse","btoone"]
   s.email       = ["support@caseproof.com"]
   s.homepage    = "http://blairwilliams.com/rails/metafy"
-  s.summary     = %q{Meta Attributes Engine for Rails 3}
-  s.description = %q{Metafy is a Gem for Rails 3 and above that makes it possible to easily add dynamic attributes to any ActiveRecord model. These dynamic attributes work just like normal database column attributes and are fully searchable (i.e. You can find records by values contained in these dynamic attributes).}
+  s.summary     = %q{Dynamic Attributes Engine for Rails 3}
+  s.description = %q{Metafy is a Gem for Rails 3 that makes it possible to easily add dynamic attributes to any ActiveRecord model. These lightweight, meta attributes work just like normal database column attributes on your ActiveRecord model and are fully searchable (i.e. you can find records by values contained in these dynamic attributes).}
 
   s.add_dependency('rails','>= 3.0.3')
   s.license = 'MIT'
