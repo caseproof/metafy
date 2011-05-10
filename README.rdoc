@@ -1,6 +1,6 @@
 = Metafy
 
-Metafy is a Gem for Rails 3 and above that makes it possible to easily add dynamic attributes to any ActiveRecord model. These dynamic attributes work just like normal database column attributes and are fully searchable (i.e. You can find records by values contained in these dynamic attributes).
+Metafy is a Gem for Rails 3 that makes it possible to easily add dynamic attributes to any ActiveRecord model. These lightweight, meta attributes work just like normal database column attributes on your ActiveRecord model and are fully searchable (i.e. you can find records by values contained in these dynamic attributes).
 
 = Installation
 
@@ -10,34 +10,61 @@ To apply Metafy to any ActiveRecord model, follow these simple steps:
    - Add to Gemfile: <b>gem 'metafy'</b>
    - Install required gems: <b>bundle install</b>
 
-2. Add 'metas' table to your database
+2. Add the 'mattrs' table to your database
    - Create migration: <b>rails g metafy</b>
    - Migrate your database: <b>rake db:migrate</b>
 
-3. Add metafied attributes to your model using the <b>metafy</b> class method (in this case we're putting it at the top of our "Person" model):
-   - Add to app/models/person.rb: <b>metafy :first_name, :last_name</b>
+3. Add metafied attributes to any of your ActiveRecord models using the <b>metafy</b> class method:
+   - Add to app/models/model.rb: <b>metafy :attribute_name</b>
+
+= Example
+
+Say you had a table named "users":
+
+  mysql> desc users;
+  +----------------+--------------+------+-----+---------+----------------+
+  | Field          | Type         | Null | Key | Default | Extra          |
+  +----------------+--------------+------+-----+---------+----------------+
+  | id             | int(11)      | NO   | PRI | NULL    | auto_increment |
+  | username       | varchar(255) | YES  | MUL | NULL    |                |
+  | email          | varchar(255) | YES  | MUL | NULL    |                |
+  | created_at     | datetime     | YES  |     | NULL    |                |
+  | updated_at     | datetime     | YES  |     | NULL    |                |
+  +----------------+--------------+------+-----+---------+----------------+
+
+And you wanted some lightweight, dynamic fields associated with the User model but didn't necessarily want them in the schema then you could add them as meta attributes using metafy like so:
+
+  # app/models/user.rb
+  class User < ActiveRecord::Base
+    metafy :first_name, :last_name,:gender, :country, :language
+  end
 
 Now you can do things like:
-  >> person = Person.meta_where( :first_name => 'Bevis' ).first
-  >> person.first_name = 'Larry'
-  >> person.first_name
+  >> user = User.meta_where( :first_name => 'Bevis' ).first
+  >> user.first_name = 'Larry'
+  >> user.save
+  >> user.first_name
     => 'Larry'
 
 OR create a new record with meta attributes:
-  >> person = Person.new :first_name => 'Jerry', :last_name => 'Johnson'
-  >> person.save
+  >> user = User.new :first_name => 'Jerry', :last_name => 'Johnson'
+  >> user.save
 
 OR select using the meta_where scope:
-  >> num_johnsons = Person.meta_where( :last_name => 'Johnson' ).count
+  >> num_johnsons = User.where( :email => 'jerry@example.com' ).meta_where( :last_name => 'Johnson' ).count
 
 OR select & order using standard rails relations:
-  >> num_johnsons = Person.includes( :m_last_name ).includes( :m_first_name ).where( :m_last_name => { :meta_value => 'Johnson' } ).order( 'm_first_name.meta_value' )
-	
-OR assuming that email is a column on the people database table:
-  >> people = Person.where( :email => 'jerry@example.com' ).meta_where( :last_name => 'Johnson' )
+  >> num_johnsons = User.where( :m_last_name => { :meta_value => 'Johnson' } ).order( 'm_first_name.meta_value DESC' )
+
+= Why would I want to use this Gem instead of just adding more database columns?
+Well, there isn't much difference functionally between a normal database colunn and a meta attribute. But there may be sometimes when you want to add a more dynamic, lightweight attribute that doesn't clutter your schema. That's when you'd use metafy.
 
 = Version history
 
+- Version 0.0.5
+  - Added more documentation
+- Version 0.0.4
+  - Fixed the metas table name issue in 3.0.7
 - Version 0.0.3
   - Added documentation
 - Version 0.0.2
