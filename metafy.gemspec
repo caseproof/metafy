@@ -3,10 +3,10 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "metafy"
-  s.version     = "1.0.1"
+  s.version     = "1.0.2"
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["supercleanse","btoone"]
-  s.email       = ["support@caseproof.com"]
+  s.authors     = ["Blair Williams","Brandon Toone"]
+  s.email       = ["blair@caseproof.com","btoone@gmail.com"]
   s.homepage    = "http://blairwilliams.com/rails/metafy"
   s.summary     = %q{Dynamic Attributes Engine for Rails 3}
   s.description = %q{Metafy is a Gem for Rails 3 that makes it possible to easily add dynamic attributes to any ActiveRecord model. These lightweight, meta attributes work just like normal database column attributes on your ActiveRecord model and are fully searchable (i.e. you can find records by values contained in these dynamic attributes).}
