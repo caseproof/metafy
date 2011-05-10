@@ -51,10 +51,13 @@ OR create a new record with meta attributes:
   >> user.save
 
 OR select using the meta_where scope:
-  >> num_johnsons = User.where( :email => 'jerry@example.com' ).meta_where( :last_name => 'Johnson' ).count
+  >> num_johnsons = User.meta_where( :last_name => 'Johnson' ).count
 
 OR select & order using standard rails relations:
-  >> num_johnsons = User.where( :m_last_name => { :meta_value => 'Johnson' } ).order( 'm_first_name.meta_value DESC' )
+  >> num_johnsons = User.where( :m_country => { :meta_value => 'Canada' } ).order( 'm_last_name.meta_value ASC' )
+
+OR chain where with meta_where:
+  >> users = User.where( 'users.email LIKE "%@gmail.com"' ).meta_where( :language => "French" )
 
 = Why would I want to use this Gem instead of just adding more database columns?
 Well, there isn't much difference functionally between a normal database colunn and a meta attribute. But there may be sometimes when you want to add a more dynamic, lightweight attribute that doesn't clutter your schema. That's when you'd use metafy.
