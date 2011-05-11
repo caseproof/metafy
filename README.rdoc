@@ -60,20 +60,12 @@ OR chain where with meta_where:
   >> users = User.where( 'users.email LIKE "%@gmail.com"' ).meta_where( :language => "French" )
 
 = Why would I want to use this Gem instead of just adding more database columns?
-Well, there isn't much difference functionally between a normal database colunn and a meta attribute. But there may be sometimes when you want to add a more dynamic, lightweight attribute that doesn't clutter your schema. That's when you'd use metafy.
+Well, there isn't much difference functionally between a normal database column and a meta attribute. But there may be sometimes when you want to add a more dynamic, lightweight attribute that doesn't clutter your schema. That's when you'd use metafy.
 
 = Version history
 
-- Version 0.0.5
-  - Added more documentation
-- Version 0.0.4
-  - Fixed the metas table name issue in 3.0.7
-- Version 0.0.3
-  - Added documentation
-- Version 0.0.2
-  - Gem Fixes
-- Version 0.0.1
-  - Initial Version
+- Version 1.0.3
+  - Refactored the code a bit
 
 = Contact and copyright
 
